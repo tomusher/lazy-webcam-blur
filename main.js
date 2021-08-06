@@ -1,19 +1,30 @@
+const DEFAULT_SETTINGS = {
+  blurAmount: 3,
+  edgeBlurAmount: 10,
+};
+
+let model, video, canvas, settings;
+
 const init = async () => {
-  const model = await bodyPix.load();
-  const video = await prepareWebcam();
+  model = await bodyPix.load();
+  video = await prepareWebcam();
+  video.height = video.videoHeight;
+  video.width = video.videoWidth;
   video.play();
 
-  const canvas = document.getElementById("output");
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
+  canvas = document.getElementById("output");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 
-  await doFrame(model, canvas);
+  settings = getSettings();
+
+  await doFrame();
 };
 
 const getSettings = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-  return params;
+  return Object.assign(DEFAULT_SETTINGS, params);
 };
 
 const prepareWebcam = async () => {
@@ -36,14 +47,14 @@ const prepareWebcam = async () => {
   });
 };
 
-const doFrame = async (model, canvas) => {
+const doFrame = async () => {
   const segmentation = await model.segmentPerson(video, {
     flipHorizontal: false,
     internalResolution: "low",
     segmentationThreshold: 0.7,
   });
-  const backgroundBlurAmount = 3;
-  const edgeBlurAmount = 10;
+  const backgroundBlurAmount = parseInt(settings.blurAmount);
+  const edgeBlurAmount = parseInt(settings.edgeBlurAmount);
   const flipHorizontal = false;
 
   bodyPix.drawBokehEffect(
@@ -55,8 +66,7 @@ const doFrame = async (model, canvas) => {
     flipHorizontal
   );
 
-  // Next frame
-  requestAnimationFrame(async () => await doFrame(model, canvas));
+  requestAnimationFrame(doFrame);
 };
 
 (async () => {
