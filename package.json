@@ -1,0 +1,14 @@
+{
+  "name": "lazy-webcam-blur",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup main.js -o dist/main.js && cp index.html dist"
+  },
+  "dependencies": {
+    "rollup": "^2.56.0"
+  }
+}
