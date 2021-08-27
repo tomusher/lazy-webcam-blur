@@ -1,18 +1,22 @@
 <html>
   <head>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0"
-    crossorigin
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"
-    crossorigin
-  ></script>
-  <script src="main.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0"
+      crossorigin
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"
+      crossorigin
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl/dist/tf-backend-webgl.js"
+      crossorigin
+    ></script>
+    <script src="main.js"></script>
   </head>
 
-  <body style="margin: 0;">
-      <video id="video" style="display: none"></video>
-      <canvas id="output" style=" height: 100vh;"></canvas>
+  <body style="margin: 0">
+    <video id="video" style="display: none"></video>
+    <canvas id="output" style="height: 100vh"></canvas>
   </body>
 </html>
